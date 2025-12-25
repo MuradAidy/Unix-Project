@@ -1,3 +1,4 @@
+name: resturant
 services:
   db:
     image: mysql:8

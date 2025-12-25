@@ -9,18 +9,47 @@
 
     <label>Favorite meal:</label>
     <input id="meal" placeholder="pizza / shawarma / burger" />
-    <button onclick="go()">Recommend..</button>
+    <button onclick="go()">Recommend</button>
 
     <pre id="out"></pre>
 
     <script>
       async function go() {
-        const meal = document.getElementById("meal").value.trim();
+        const meal = document.getElementById("meal").value.trim().toLowerCase();
         const out = document.getElementById("out");
+
+        if (!meal) {
+          out.textContent = "Please enter a meal (pizza / shawarma / burger).";
+          return;
+        }
+
         out.textContent = "Loading...";
-        const r = await fetch(`/api/recommend?meal=${encodeURIComponent(meal)}`);
-        const data = await r.json();
-        out.textContent = JSON.stringify(data, null, 2);
+
+        try {
+          const res = await fetch(`/api/recommend?meal=${encodeURIComponent(meal)}`);
+          const text = await res.text();
+
+          if (!res.ok) {
+            out.textContent = `HTTP ERROR ${res.status}\n${text}`;
+            return;
+          }
+
+          // إذا الرد JSON وفيه مطعم، اعرض name فقط
+          try {
+            const data = JSON.parse(text);
+            if (data.found && data.restaurant?.name) {
+              out.textContent = `🍽 Recommended restaurant: ${data.restaurant.name}\n⭐ Rating: ${data.restaurant.rating}`;
+            } else {
+              out.textContent = data.message || text;
+            }
+          } catch {
+            // لو مش JSON، اعرض الرد الخام
+            out.textContent = text;
+          }
+
+        } catch (err) {
+          out.textContent = `Request failed: ${err.message}`;
+        }
       }
     </script>
   </body>
