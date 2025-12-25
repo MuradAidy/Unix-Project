@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Restaurant Recommendation</title>
+  </head>
+  <body>
+    <h1>Restaurant Recommendation</h1>
+
+    <label>Favorite meal:</label>
+    <input id="meal" placeholder="pizza / shawarma / burger" />
+    <button onclick="go()">Recommend</button>
+
+    <pre id="out"></pre>
+
+    <script>
+      async function go() {
+        const meal = document.getElementById("meal").value.trim();
+        const out = document.getElementById("out");
+        out.textContent = "Loading...";
+        const r = await fetch(`/api/recommend?meal=${encodeURIComponent(meal)}`);
+        const data = await r.json();
+        out.textContent = JSON.stringify(data, null, 2);
+      }
+    </script>
+  </body>
+</html>
