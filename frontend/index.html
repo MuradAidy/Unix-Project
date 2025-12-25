@@ -9,7 +9,7 @@
 
     <label>Favorite meal:</label>
     <input id="meal" placeholder="pizza / shawarma / burger" />
-    <button onclick="go()">Recommend</button>
+    <button onclick="go()">Recommend.</button>
 
     <pre id="out"></pre>
 
@@ -34,7 +34,6 @@
             return;
           }
 
-          // إذا الرد JSON وفيه مطعم، اعرض name فقط
           try {
             const data = JSON.parse(text);
             if (data.found && data.restaurant?.name) {
@@ -43,7 +42,6 @@
               out.textContent = data.message || text;
             }
           } catch {
-            // لو مش JSON، اعرض الرد الخام
             out.textContent = text;
           }
 
