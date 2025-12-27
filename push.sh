@@ -15,7 +15,8 @@ fi
 
 git add .
 
-if git diff --cached --quiet; then
+if git diff --cached --quiet; 
+then
   echo "No changes."
   exit 0
 else
