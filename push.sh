@@ -23,5 +23,5 @@ else
   git commit -m "$msg"
 fi
 
-git push origin main
+git push --set-upstream origin HEAD
 echo "Pushed"
