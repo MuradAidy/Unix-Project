@@ -24,7 +24,7 @@ async function getConn() {
 
 app.get("/api/recommend", async (req, res) => {
   const meal = (req.query.meal || "").trim().toLowerCase();
-  if (!meal) return res.status(400).json({ error: "meal is required" });
+  if (!meal) return res.status(400).json({ error: "meal is required" });;
 
   const conn = await getConn();
   const [rows] = await conn.execute(

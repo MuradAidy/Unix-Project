@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+#test
 msg="$1"
 
 cd "$(dirname "$0")"
