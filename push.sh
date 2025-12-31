@@ -25,4 +25,3 @@ fi
 
 git push --set-upstream origin HEAD
 echo "Pushed"
-
